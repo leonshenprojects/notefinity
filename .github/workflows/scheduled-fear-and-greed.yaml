@@ -1,7 +1,7 @@
 name: daily-fear-and-greed-cron-job
 on:
   schedule:
-    - cron: '*/2 * * * *'
+    - cron: '*/3 * * * *'
   push:
     branches: [ main ]
 jobs:
