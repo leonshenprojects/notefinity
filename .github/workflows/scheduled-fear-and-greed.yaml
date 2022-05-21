@@ -1,10 +1,7 @@
 name: daily-fear-and-greed-cron-job
 on:
   schedule:
-    - cron: "40 10 * * *"
-  push:
-    branches:
-      - main
+    - cron: "*/2 * * * *"
 jobs:
   cron:
     runs-on: ubuntu-latest
