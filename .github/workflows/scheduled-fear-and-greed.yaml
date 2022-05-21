@@ -1,0 +1,12 @@
+name: daily-fear-and-greed-cron-job
+on:
+  schedule:
+    - cron: "40 10 * * *"
+jobs:
+  cron:
+    runs-on: ubuntu-latest
+    steps:
+      - name: daily-fear-and-greed-cron-job
+        run: |
+          curl --request POST \
+          --url 'https://notefinity.vercel.app/api/fear-and-greed'
