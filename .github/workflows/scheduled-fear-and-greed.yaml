@@ -1,7 +1,7 @@
 name: daily-fear-and-greed-cron-job
 on:
   schedule:
-    - cron: '*/2 * * * *'
+    - cron: '15 0 * * *'
 jobs:
   cron:
     runs-on: ubuntu-latest
