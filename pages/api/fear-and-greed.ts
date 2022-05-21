@@ -4,10 +4,17 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
+	const { PUSHSAFER_API_KEY: API_KEY } = process.env;
+	const { PUSHSAFER_API_KEY } = req.headers.authorization.split(" ")[1];
+
+	if (PUSHSAFER_API_KEY !== API_KEY) {
+		return res.status(401);
+	}
+
 	try {
 		const fearAndGreedData = await getCurrentFearAndGreedData();
 
-		const url = getUrl({
+		const url = getUrl(API_KEY, {
 			m: fearAndGreedData.value_classification,
 			t: `Fear and Geed Index is ${fearAndGreedData.value}`,
 			i: 25,
@@ -16,7 +23,7 @@ export default async function handler(
 			pr: 2,
 		});
 
-		const response = await fetch(url, {
+		await fetch(url, {
 			method: "POST",
 			headers: {
 				"Content-Type": "application/x-www-form-urlencoded",
@@ -68,9 +75,9 @@ const getCurrentFearAndGreedData = async (): Promise<FearAndGreedData> => {
 	return data[0];
 };
 
-const getUrl = (options: PushSaferOptions) => {
+const getUrl = (apiKey: string, options: PushSaferOptions) => {
 	const baseURL = "https://www.pushsafer.com/api";
-	const key = "uovjgpwTrUqTJeF7Cf2i&m";
+	const key = apiKey;
 
 	return Object.keys(options).reduce((url, currentKey) => {
 		if (!options[currentKey]) {

@@ -1,7 +1,9 @@
 name: daily-fear-and-greed-cron-job
 on:
   schedule:
-    - cron: '15 0 * * *'
+    - cron: '*/2 * * * *'
+  push:
+    branches: [ main ]
 jobs:
   cron:
     runs-on: ubuntu-latest
@@ -9,4 +11,5 @@ jobs:
       - name: daily-fear-and-greed-cron-job
         run: |
           curl --request POST \
-          --url 'https://notefinity.vercel.app/api/fear-and-greed'
+          --url 'https://notefinity.vercel.app/api/fear-and-greed' \
+          --header 'Authorization: Bearer ${{ secrets.PUSHSAFER_API_KEY }}'
