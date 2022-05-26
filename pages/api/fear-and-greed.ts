@@ -5,11 +5,16 @@ export default async function handler(
 	res: NextApiResponse
 ) {
 	const { PUSHSAFER_API_KEY: API_KEY } = process.env;
-	const { PUSHSAFER_API_KEY } = req.headers.authorization.split(" ")[1];
+	console.log("API_KEY", API_KEY);
+	// const { PUSHSAFER_API_KEY } = req.headers.authorization.split(" ")[1];
+	console.log(
+		'req.headers.authorization.split(" ")[1] is: ',
+		req.headers.authorization.split(" ")[1]
+	);
 
-	if (PUSHSAFER_API_KEY !== API_KEY) {
-		return res.status(401);
-	}
+	// if (PUSHSAFER_API_KEY !== API_KEY) {
+	// 	return res.status(401);
+	// }
 
 	try {
 		const fearAndGreedData = await getCurrentFearAndGreedData();
