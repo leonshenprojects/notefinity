@@ -7,10 +7,10 @@ export default async function handler(
 	const { PUSHSAFER_API_KEY: API_KEY } = process.env;
 	console.log("API_KEY", API_KEY);
 	// const { PUSHSAFER_API_KEY } = req.headers.authorization.split(" ")[1];
-	console.log(
-		'req.headers.authorization.split(" ")[1] is: ',
-		req.headers.authorization.split(" ")[1]
-	);
+	// console.log(
+	// 	'req.headers.authorization.split(" ")[1] is: ',
+	// 	req.headers.authorization.split(" ")[1]
+	// );
 
 	// if (PUSHSAFER_API_KEY !== API_KEY) {
 	// 	return res.status(401);
@@ -35,7 +35,7 @@ export default async function handler(
 			},
 		});
 
-		return res.status(200).json({ status: "ok" });
+		return res.status(200).json({ status: "ok", test: API_KEY });
 	} catch (error) {
 		return res.status(500).json({
 			error: `There was an error - ${error}`,
