@@ -4,30 +4,21 @@ export default async function handler(
 	req: NextApiRequest,
 	res: NextApiResponse
 ) {
-	const { PUSHSAFER_API_KEY: API_KEY } = process.env;
-	console.log("API_KEY", API_KEY);
-	// const { PUSHSAFER_API_KEY } = req.headers.authorization.split(" ")[1];
-	// console.log(
-	// 	'req.headers.authorization.split(" ")[1] is: ',
-	// 	req.headers.authorization.split(" ")[1]
-	// );
-
-	return res.status(200).json({authorization: req.headers.authorization})
-
-	// if (PUSHSAFER_API_KEY !== API_KEY) {
-	// 	return res.status(401);
-	// }
+	const { PUSHSAFER_API_KEY } = process.env;
 
 	try {
 		const fearAndGreedData = await getCurrentFearAndGreedData();
 
-		const url = getUrl(API_KEY, {
+		const url = getUrl(PUSHSAFER_API_KEY, {
 			m: fearAndGreedData.value_classification,
 			t: `Fear and Geed Index is ${fearAndGreedData.value}`,
 			i: 25,
 			s: 3,
 			v: 181,
-			pr: 2,
+			pr:
+				Number(fearAndGreedData.value) && Number(fearAndGreedData.value) < 15
+					? 2
+					: undefined,
 		});
 
 		await fetch(url, {
@@ -37,7 +28,7 @@ export default async function handler(
 			},
 		});
 
-		return res.status(200).json({ status: "ok", test: API_KEY });
+		return res.status(200).json({ status: "ok" });
 	} catch (error) {
 		return res.status(500).json({
 			error: `There was an error - ${error}`,
