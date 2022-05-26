@@ -12,6 +12,8 @@ export default async function handler(
 	// 	req.headers.authorization.split(" ")[1]
 	// );
 
+	return res.status(200).json({authorization: req.headers.authorization})
+
 	// if (PUSHSAFER_API_KEY !== API_KEY) {
 	// 	return res.status(401);
 	// }
