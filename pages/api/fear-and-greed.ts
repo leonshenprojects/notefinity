@@ -15,10 +15,10 @@ export default async function handler(
 			i: 25,
 			s: 3,
 			v: 181,
-			pr:
-				Number(fearAndGreedData.value) && Number(fearAndGreedData.value) < 15
-					? 2
-					: undefined,
+			// pr:
+			// 	Number(fearAndGreedData.value) && Number(fearAndGreedData.value) < 15
+			// 		? 2
+			// 		: undefined,
 		});
 
 		await fetch(url, {
