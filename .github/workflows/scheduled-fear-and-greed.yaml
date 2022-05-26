@@ -2,6 +2,9 @@ name: daily-fear-and-greed-cron-job
 on:
   schedule:
     - cron: '15 0 * * *'
+  push:
+    branches:
+      - 'main'
 jobs:
   cron:
     runs-on: ubuntu-latest
